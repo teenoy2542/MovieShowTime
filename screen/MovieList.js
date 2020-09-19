@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, TouchableHighlight, TouchableOpacity, ActivityIndicator, FlatList, Image ,StyleSheet } from 'react-native'
 import axios from "axios";
+import moment from 'moment';
 
 
 
@@ -28,10 +29,10 @@ export default function MovieList({ navigation }) {
     }
 
     return (
-        <View style={{ flex: 1 }}>
+        <View style={{ flex: 1,backgroundColor:'black' }}>
             <FlatList
                 data={movies}
-                numColumns={1}
+                numColumns={2}
                 horizontal={false}
                 keyExtractor={item => item.id}
                 renderItem={({ item }) => {
@@ -45,12 +46,13 @@ export default function MovieList({ navigation }) {
                                     { id: item.id }
                                 )
                             }>
-                            <View style={styles.movieImage}>
+                            <View style={{flex:1}}>
                                 <Image source={{ uri: item.posterUrl }}
-                                    style={styles.movieImage} />
-                                <View style={{ padding: 20 }}>
-                                    <Text style={styles.textDate}>{item.showingAt}</Text>
-                                    <Text style={styles.textTitle}>{item.name}</Text>
+                                    style={styles.movieImage}
+                                    />
+                                <View style={{ padding: 20}}>
+                                    <Text style={styles.textDate}>วันที่ฉาย : {moment(item.showingAt).format('DD/MM/YYYY')}</Text>
+                                    <Text style={styles.textTitle}>ชื่อหนัง : {item.name}</Text>
                                 </View>
                             </View>
                         </TouchableHighlight>
@@ -64,21 +66,24 @@ export default function MovieList({ navigation }) {
 
 const styles = StyleSheet.create({
     container: {
-        margin:20
+        
     },
     textDate: {
-        margin:1
+        color:'#e1b12c'
+        
     },
     textTitle: {
-        margin:20
+        color:"white",
+        marginTop:5,
+        fontSize:18,
+        lineHeight:27
+
     },
     cardMovie: {
-        margin:50
+        flex:0.5
     },
-    movieImage: {
-        width:400,
-        height:300,
-        margin:20
+    movieImage: {        
+        height:300,        
     },
  })
  
